@@ -1,0 +1,47 @@
+{
+  "auditedAt": "2026-02-17T21:55:00Z",
+  "skill": "fofum-solidity-audit",
+  "skillVersion": "0.1.0",
+  "findings": [
+    {
+      "id": "NOMAD-F01",
+      "title": "Zero value treated as valid confirmation in acceptableRoot()",
+      "severity": "critical",
+      "category": "logic-bug",
+      "location": {
+        "file": "ReplicaSimplified.sol",
+        "function": "acceptableRoot()",
+        "lines": "74-83"
+      },
+      "description": "The acceptableRoot() function returns true when _confirmAt == 0. Since Solidity mappings return 0 for uninitialized keys, ANY message hash that hasn't been explicitly set will be treated as 'confirmed'.",
+      "impact": "Anyone can process arbitrary messages and unlock bridged funds without valid proofs.",
+      "recommendation": "Return false when confirmAt == 0 to distinguish uninitialized from confirmed.",
+      "confidence": "high"
+    },
+    {
+      "id": "NOMAD-F02",
+      "title": "No message validation before processing",
+      "severity": "high",
+      "category": "input-validation",
+      "location": {
+        "file": "ReplicaSimplified.sol",
+        "function": "process()",
+        "lines": "42-58"
+      },
+      "description": "The process() function accepts arbitrary bytes as _message without validating the message format or source chain.",
+      "impact": "Combined with the acceptableRoot bug, attackers can craft arbitrary malicious messages.",
+      "recommendation": "Validate message structure, source chain, and sender before processing.",
+      "confidence": "medium"
+    }
+  ],
+  "summary": {
+    "critical": 1,
+    "high": 1,
+    "medium": 0,
+    "low": 0,
+    "informational": 0,
+    "total": 2
+  },
+  "rootCauseIdentified": true,
+  "rootCauseDescription": "Zero (uninitialized mapping value) is incorrectly treated as a valid confirmation timestamp"
+}

@@ -1,0 +1,82 @@
+{
+  "auditedAt": "2026-02-17T21:50:00Z",
+  "skill": "fofum-solidity-audit",
+  "skillVersion": "0.1.0",
+  "timeSpent": "~5 minutes manual review",
+  "findings": [
+    {
+      "id": "EULER-F01",
+      "title": "Missing health check in donateToReserves allows self-liquidation exploit",
+      "severity": "critical",
+      "category": "logic-bug",
+      "location": {
+        "file": "EulerSimplified.sol",
+        "function": "donateToReserves()",
+        "lines": "55-63"
+      },
+      "description": "The donateToReserves() function reduces the user's collateral (balanceOf) without checking if the account remains healthy. This allows users to intentionally make themselves liquidatable.",
+      "impact": "Combined with self-liquidation, attackers can extract the liquidation bonus from their own position, draining protocol funds. The attack is amplified with flash loans.",
+      "recommendation": "Add health check after donation: require(_isHealthy(msg.sender), 'Would make account unhealthy');",
+      "confidence": "high",
+      "checklist_items": ["Logic bugs - state machine transitions"]
+    },
+    {
+      "id": "EULER-F02",
+      "title": "Self-liquidation allowed in liquidate()",
+      "severity": "high",
+      "category": "logic-bug",
+      "location": {
+        "file": "EulerSimplified.sol",
+        "function": "liquidate()",
+        "lines": "73-87"
+      },
+      "description": "The liquidate() function does not prevent msg.sender from liquidating their own position (violator == msg.sender). This allows extracting the liquidation bonus from oneself.",
+      "impact": "Attackers can create leveraged positions, make themselves liquidatable via donate, then self-liquidate to extract value.",
+      "recommendation": "Add check: require(msg.sender != violator, 'Cannot self-liquidate');",
+      "confidence": "high",
+      "checklist_items": ["Access control - who can call what"]
+    },
+    {
+      "id": "EULER-F03",
+      "title": "Flash loan attack amplification vector",
+      "severity": "high",
+      "category": "flash-loan",
+      "location": {
+        "file": "EulerSimplified.sol",
+        "function": "deposit(), mint(), donateToReserves(), liquidate()",
+        "lines": "multiple"
+      },
+      "description": "The entire attack flow (deposit → mint → donate → liquidate → withdraw) can be executed atomically within a single transaction using flash loans, maximizing extractable value.",
+      "impact": "Flash loans remove capital requirements, allowing attackers to drain protocol with borrowed funds and no upfront cost.",
+      "recommendation": "Consider time-delayed liquidations or flash loan guards on critical operations.",
+      "confidence": "medium",
+      "checklist_items": ["Flash loan - can attack be amplified"]
+    },
+    {
+      "id": "EULER-F04",
+      "title": "No return value check on ERC20 transfers",
+      "severity": "medium",
+      "category": "unchecked-return",
+      "location": {
+        "file": "EulerSimplified.sol",
+        "function": "deposit(), repay(), withdraw(), liquidate()",
+        "lines": "36, 51, 68, 78"
+      },
+      "description": "ERC20 transfer and transferFrom calls do not check return values. Some tokens return false instead of reverting on failure.",
+      "impact": "Silent failures could lead to accounting mismatches with non-standard tokens.",
+      "recommendation": "Use SafeERC20 library or check return values explicitly.",
+      "confidence": "high",
+      "checklist_items": ["External calls - return values checked"]
+    }
+  ],
+  "summary": {
+    "critical": 1,
+    "high": 2,
+    "medium": 1,
+    "low": 0,
+    "informational": 0,
+    "total": 4
+  },
+  "rootCauseIdentified": true,
+  "rootCauseDescription": "donateToReserves() lacks health check after reducing collateral, enabling intentional under-collateralization combined with self-liquidation"
+}

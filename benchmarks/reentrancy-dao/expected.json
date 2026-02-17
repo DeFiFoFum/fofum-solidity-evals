@@ -1,0 +1,24 @@
+{
+  "name": "The DAO (Classic Reentrancy)",
+  "date": "2016-06-17",
+  "loss": "$60M",
+  "chain": "ethereum",
+  "category": "defi",
+  "source": {
+    "postMortem": "https://blog.ethereum.org/2016/06/17/critical-update-re-dao-vulnerability"
+  },
+  "vulnerabilities": [
+    {
+      "id": "DAO-01",
+      "title": "Reentrancy in withdrawal function",
+      "severity": "critical",
+      "category": "reentrancy",
+      "description": "The splitDAO/withdraw function sent ETH to the caller before updating their balance, allowing recursive calls to drain funds.",
+      "rootCause": "External call (ETH transfer) before state update (balance decrement)",
+      "location": {
+        "contract": "DAO.sol",
+        "function": "splitDAO()"
+      }
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "auditedAt": "2026-02-17T21:56:00Z",
+  "skill": "fofum-solidity-audit",
+  "skillVersion": "0.1.0",
+  "findings": [
+    {
+      "id": "DAO-F01",
+      "title": "Classic reentrancy vulnerability in withdraw()",
+      "severity": "critical",
+      "category": "reentrancy",
+      "location": {
+        "file": "VulnerableDAO.sol",
+        "function": "withdraw()",
+        "lines": "22-34"
+      },
+      "description": "The withdraw() function sends ETH via low-level call before updating the sender's balance. An attacker contract can re-enter withdraw() in its receive() function, draining the contract repeatedly before the balance is set to zero.",
+      "impact": "Complete drainage of contract funds",
+      "recommendation": "Follow Checks-Effects-Interactions (CEI) pattern: update balances[msg.sender] = 0 BEFORE the external call.",
+      "confidence": "high"
+    }
+  ],
+  "summary": {
+    "critical": 1,
+    "high": 0,
+    "medium": 0,
+    "low": 0,
+    "informational": 0,
+    "total": 1
+  },
+  "rootCauseIdentified": true,
+  "rootCauseDescription": "State update after external call enables recursive withdrawal"
+}

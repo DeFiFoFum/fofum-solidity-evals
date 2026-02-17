@@ -1,0 +1,24 @@
+{
+  "name": "Nomad Bridge",
+  "date": "2022-08-01",
+  "loss": "$190M",
+  "chain": "ethereum",
+  "category": "bridge",
+  "source": {
+    "postMortem": "https://medium.com/nomad-xyz-blog/nomad-bridge-hack-root-cause-analysis-875ad2e5aacd"
+  },
+  "vulnerabilities": [
+    {
+      "id": "NOMAD-01",
+      "title": "Zero initialization treated as valid proof",
+      "severity": "critical",
+      "category": "logic-bug",
+      "description": "A routine upgrade initialized the confirmAt mapping with zero as the trusted root. The acceptableRoot() function treated zero as a valid confirmed message, allowing anyone to process fake messages.",
+      "rootCause": "messages[hash] == 0 was treated as 'confirmed' instead of 'uninitialized'",
+      "location": {
+        "contract": "Replica.sol",
+        "function": "process()"
+      }
+    }
+  ]
+}
