@@ -1,0 +1,41 @@
+{
+  "name": "Euler Finance",
+  "date": "2023-03-13",
+  "loss": "$197M",
+  "chain": "ethereum",
+  "category": "lending",
+  "source": {
+    "defiHackLabs": "src/test/2023-03/Euler_exp.sol",
+    "postMortem": "https://www.euler.finance/blog/euler-finance-attack-post-mortem"
+  },
+  "vulnerabilities": [
+    {
+      "id": "EULER-01",
+      "title": "Donation to reserves inflates debt without health check",
+      "severity": "critical",
+      "category": "logic-bug",
+      "description": "The donateToReserves() function allowed users to inflate their debt liability without a corresponding health factor check. Combined with self-liquidation, this enabled extracting more collateral than deposited.",
+      "rootCause": "donateToReserves() increased liability but didn't verify position remained healthy",
+      "exploitFlow": [
+        "1. Flash loan DAI",
+        "2. Deposit as collateral, mint eDAI",
+        "3. Mint max dDAI (borrow)",
+        "4. Repay some, repeat to create leveraged position",
+        "5. Call donateToReserves() to inflate debt",
+        "6. Self-liquidate at favorable rate",
+        "7. Profit exceeds original deposit"
+      ],
+      "location": {
+        "contract": "Euler.sol",
+        "function": "donateToReserves()"
+      }
+    }
+  ],
+  "contracts": [
+    {
+      "name": "Euler.sol",
+      "address": "0x27182842E098f60e3D576794A5bFFb0777E025d3",
+      "verified": true
+    }
+  ]
+}
