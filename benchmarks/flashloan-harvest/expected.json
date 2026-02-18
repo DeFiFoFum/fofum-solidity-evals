@@ -1,0 +1,17 @@
+{
+  "name": "Harvest Finance",
+  "date": "2020-10-26",
+  "loss": "$34M",
+  "chain": "ethereum",
+  "category": "yield",
+  "vulnerabilities": [
+    {
+      "id": "HARVEST-01",
+      "title": "Flash loan oracle manipulation via Curve pool",
+      "severity": "critical",
+      "category": "oracle",
+      "description": "Harvest used Curve pool spot price for USDC/USDT valuation. Attacker flash loaned funds, manipulated Curve price, deposited at favorable rate, manipulated price back, withdrew at profit.",
+      "rootCause": "Spot price oracle vulnerable to single-block manipulation via flash loans"
+    }
+  ]
+}

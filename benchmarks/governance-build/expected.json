@@ -1,0 +1,17 @@
+{
+  "name": "Build Finance",
+  "date": "2022-02-14",
+  "loss": "Treasury takeover",
+  "chain": "ethereum",
+  "category": "dao",
+  "vulnerabilities": [
+    {
+      "id": "BUILD-01",
+      "title": "Hostile governance takeover via low quorum",
+      "severity": "critical",
+      "category": "governance",
+      "description": "Attacker accumulated enough BUILD tokens to meet the low quorum threshold, passed a malicious proposal granting themselves control, and took over the DAO treasury.",
+      "rootCause": "Quorum too low relative to circulating supply + no timelock"
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "auditedAt": "2026-02-18T02:47:00Z",
+  "skill": "fofum-solidity-audit",
+  "skillVersion": "0.1.0",
+  "findings": [
+    {
+      "id": "CURVE-RO-F01",
+      "title": "Read-only reentrancy in get_virtual_price() during remove_liquidity",
+      "severity": "critical",
+      "category": "reentrancy",
+      "location": {
+        "file": "CurveReadOnlyReentrancy.sol",
+        "function": "remove_liquidity()",
+        "lines": "48-62"
+      },
+      "description": "The remove_liquidity() function sends ETH to the user before updating reserves and totalSupply. During the callback, get_virtual_price() returns a stale/inflated value because state hasn't been updated.",
+      "impact": "Any protocol using get_virtual_price() for collateral valuation can be exploited. Attacker borrows against inflated LP value.",
+      "recommendation": "Update reserves before external call, or use reentrancy guard on state-reading functions.",
+      "confidence": "high"
+    },
+    {
+      "id": "CURVE-RO-F02",
+      "title": "Lending protocol vulnerable to oracle manipulation via reentrancy",
+      "severity": "high",
+      "category": "oracle",
+      "location": {
+        "file": "CurveReadOnlyReentrancy.sol",
+        "function": "borrow()",
+        "lines": "85-93"
+      },
+      "description": "The borrow() function reads curvePool.get_virtual_price() without any protection against read-only reentrancy attacks.",
+      "impact": "Attacker can borrow more than their collateral is worth during Curve reentrancy.",
+      "recommendation": "Use Curve's reentrancy lock, or cache virtual_price outside of any callback context.",
+      "confidence": "high"
+    }
+  ],
+  "summary": {
+    "critical": 1,
+    "high": 1,
+    "medium": 0,
+    "low": 0,
+    "total": 2
+  },
+  "rootCauseIdentified": true
+}

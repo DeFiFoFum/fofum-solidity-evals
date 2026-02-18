@@ -1,0 +1,44 @@
+{
+  "auditedAt": "2026-02-18T03:17:00Z",
+  "skill": "fofum-solidity-audit",
+  "skillVersion": "0.1.0",
+  "findings": [
+    {
+      "id": "VALUE-F01",
+      "title": "Division before multiplication causes precision loss",
+      "severity": "critical",
+      "category": "integer",
+      "location": {
+        "file": "ValueSimplified.sol",
+        "function": "deposit(), depositVulnerable()",
+        "lines": "23-26, 42-44"
+      },
+      "description": "The share calculation divides before multiplying: assets / totalAssets * totalShares. With integer division, small deposits relative to totalAssets round down to zero.",
+      "impact": "Zero-share deposits still add assets to vault, inflating share price. Attacker can exploit this to extract value.",
+      "recommendation": "Always multiply before dividing: assets * totalShares / totalAssets",
+      "confidence": "high"
+    },
+    {
+      "id": "VALUE-F02",
+      "title": "Missing zero-shares check in depositVulnerable",
+      "severity": "high",
+      "category": "input-validation",
+      "location": {
+        "file": "ValueSimplified.sol",
+        "function": "depositVulnerable()",
+        "lines": "40-51"
+      },
+      "description": "The function accepts deposits that result in zero shares, allowing donation attacks.",
+      "recommendation": "require(sharesToMint > 0) after calculation.",
+      "confidence": "high"
+    }
+  ],
+  "summary": {
+    "critical": 1,
+    "high": 1,
+    "medium": 0,
+    "low": 0,
+    "total": 2
+  },
+  "rootCauseIdentified": true
+}

@@ -1,0 +1,17 @@
+{
+  "name": "Compound",
+  "date": "2021-09-30",
+  "loss": "$80M+",
+  "chain": "ethereum",
+  "category": "lending",
+  "vulnerabilities": [
+    {
+      "id": "COMPOUND-01",
+      "title": "Reward distribution accounting error after upgrade",
+      "severity": "critical",
+      "category": "logic-bug",
+      "description": "A governance proposal to update COMP distribution introduced an accounting bug. The compAccrued mapping wasn't properly synchronized with the new distribution logic, causing users to claim excessive COMP rewards.",
+      "rootCause": "State inconsistency after upgrade - old accrued values combined with new distribution rate"
+    }
+  ]
+}

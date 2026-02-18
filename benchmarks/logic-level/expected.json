@@ -1,0 +1,17 @@
+{
+  "name": "Level Finance",
+  "date": "2023-05-01",
+  "loss": "$1.1M",
+  "chain": "bsc",
+  "category": "perpetuals",
+  "vulnerabilities": [
+    {
+      "id": "LEVEL-01",
+      "title": "Referral reward double-claim via self-referral",
+      "severity": "critical",
+      "category": "logic-bug",
+      "description": "Users could set themselves as their own referrer and claim referral rewards from their own trading activity. The referral state wasn't properly reset after claiming.",
+      "rootCause": "Missing state update after reward claim allowed multiple claims"
+    }
+  ]
+}

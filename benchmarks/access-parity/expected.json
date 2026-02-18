@@ -1,0 +1,17 @@
+{
+  "name": "Parity Multisig",
+  "date": "2017-11-06",
+  "loss": "$150M frozen",
+  "chain": "ethereum",
+  "category": "wallet",
+  "vulnerabilities": [
+    {
+      "id": "PARITY-01",
+      "title": "Unprotected library initializer",
+      "severity": "critical",
+      "category": "access-control",
+      "description": "The Parity wallet library contract had an unprotected initWallet() function. A random user called it, became owner of the library, then called kill() which destroyed the library and froze all dependent wallets.",
+      "rootCause": "Library contract's initialize function lacked access control"
+    }
+  ]
+}

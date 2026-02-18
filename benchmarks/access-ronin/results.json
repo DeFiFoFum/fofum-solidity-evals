@@ -1,0 +1,44 @@
+{
+  "auditedAt": "2026-02-18T03:05:00Z",
+  "skill": "fofum-solidity-audit",
+  "skillVersion": "0.1.0",
+  "findings": [
+    {
+      "id": "RONIN-F01",
+      "title": "Validator key distribution not enforced on-chain",
+      "severity": "critical",
+      "category": "access-control",
+      "location": {
+        "file": "RoninSimplified.sol",
+        "function": "constructor(), withdraw()",
+        "lines": "28-37, 45-73"
+      },
+      "description": "The bridge only checks signature count (5/9) but doesn't verify that validators are from different organizations. A single entity controlling 5 keys can bypass the threshold.",
+      "impact": "If validators are concentrated, compromise of one entity = complete bridge takeover.",
+      "recommendation": "Track validator organizations on-chain. Require signatures from N different organizations, not just N signatures.",
+      "confidence": "high"
+    },
+    {
+      "id": "RONIN-F02",
+      "title": "No withdrawal delay or dispute period",
+      "severity": "medium",
+      "category": "logic-bug",
+      "location": {
+        "file": "RoninSimplified.sol",
+        "function": "withdraw()",
+        "lines": "45-73"
+      },
+      "description": "Withdrawals are processed immediately once threshold signatures are provided. No delay period for community to detect fraudulent withdrawals.",
+      "recommendation": "Add time delay (24-48h) for large withdrawals to allow fraud detection.",
+      "confidence": "medium"
+    }
+  ],
+  "summary": {
+    "critical": 1,
+    "high": 0,
+    "medium": 1,
+    "low": 0,
+    "total": 2
+  },
+  "rootCauseIdentified": true
+}

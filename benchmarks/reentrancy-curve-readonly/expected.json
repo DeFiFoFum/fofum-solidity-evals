@@ -1,0 +1,17 @@
+{
+  "name": "Curve Read-Only Reentrancy",
+  "date": "2023-07-30",
+  "loss": "$70M+ (multiple protocols)",
+  "chain": "ethereum",
+  "category": "amm",
+  "vulnerabilities": [
+    {
+      "id": "CURVE-RO-01",
+      "title": "Read-only reentrancy during LP token operations",
+      "severity": "critical",
+      "category": "reentrancy",
+      "description": "Curve pools update virtual_price after external calls during add/remove liquidity. Protocols reading virtual_price during a callback get a stale/manipulated value, leading to incorrect valuations.",
+      "rootCause": "get_virtual_price() returns stale value during reentrancy callback"
+    }
+  ]
+}

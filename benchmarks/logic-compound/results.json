@@ -1,0 +1,30 @@
+{
+  "auditedAt": "2026-02-18T03:10:00Z",
+  "skill": "fofum-solidity-audit",
+  "skillVersion": "0.1.0",
+  "findings": [
+    {
+      "id": "COMPOUND-F01",
+      "title": "Reward rate upgrade doesn't settle existing accruals",
+      "severity": "critical",
+      "category": "logic-bug",
+      "location": {
+        "file": "CompoundSimplified.sol",
+        "function": "upgradeRewardRate()",
+        "lines": "66-73"
+      },
+      "description": "Changing rewardPerBlock without settling existing compAccrued values creates inconsistent state. Users accrued at old rate may benefit/lose when claiming at new rate.",
+      "impact": "Users can claim more rewards than intended, draining the reward pool.",
+      "recommendation": "Force-settle all users before rate change, or use a snapshot-based system.",
+      "confidence": "high"
+    }
+  ],
+  "summary": {
+    "critical": 1,
+    "high": 0,
+    "medium": 0,
+    "low": 0,
+    "total": 1
+  },
+  "rootCauseIdentified": true
+}

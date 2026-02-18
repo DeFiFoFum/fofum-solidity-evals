@@ -1,0 +1,30 @@
+{
+  "auditedAt": "2026-02-18T03:19:00Z",
+  "skill": "fofum-solidity-audit",
+  "skillVersion": "0.1.0",
+  "findings": [
+    {
+      "id": "COVER-F01",
+      "title": "Missing rewardDebt update allows infinite reward claims",
+      "severity": "critical",
+      "category": "integer",
+      "location": {
+        "file": "CoverSimplified.sol",
+        "function": "claimVulnerable()",
+        "lines": "48-58"
+      },
+      "description": "The claimVulnerable() function mints rewards but doesn't update rewardDebt. Users can call repeatedly to claim the same rewards infinitely.",
+      "impact": "Unlimited minting of COVER tokens, destroying token value.",
+      "recommendation": "Update rewardDebt before minting: rewardDebt[msg.sender] = deposited[msg.sender] * accRewardPerShare / PRECISION",
+      "confidence": "high"
+    }
+  ],
+  "summary": {
+    "critical": 1,
+    "high": 0,
+    "medium": 0,
+    "low": 0,
+    "total": 1
+  },
+  "rootCauseIdentified": true
+}

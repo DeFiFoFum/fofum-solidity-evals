@@ -10,9 +10,143 @@
       "falsePositives": 0,
       "grade": "A+",
       "details": {
-        "euler-2023": { "recall": 1.0, "extra": 3, "fp": 0 },
-        "nomad-2022": { "recall": 1.0, "extra": 1, "fp": 0 },
-        "reentrancy-dao": { "recall": 1.0, "extra": 0, "fp": 0 }
+        "euler-2023": {
+          "recall": 1.0,
+          "extra": 3,
+          "fp": 0
+        },
+        "nomad-2022": {
+          "recall": 1.0,
+          "extra": 1,
+          "fp": 0
+        },
+        "reentrancy-dao": {
+          "recall": 1.0,
+          "extra": 0,
+          "fp": 0
+        }
+      }
+    },
+    {
+      "timestamp": "2026-02-18T02:51:23.433482Z",
+      "skillVersion": "0.1.0",
+      "benchmarks": 22,
+      "knownVulns": 22,
+      "recall": 1.4090909090909092,
+      "extraFindings": 10,
+      "falsePositives": 0,
+      "grade": "A+",
+      "details": {
+        "access-parity": {
+          "recall": 2.0,
+          "extra": 0,
+          "fp": 0
+        },
+        "access-ronin": {
+          "recall": 1.0,
+          "extra": 1,
+          "fp": 0
+        },
+        "access-wintermute": {
+          "recall": 2.0,
+          "extra": 0,
+          "fp": 0
+        },
+        "bridge-polynetwork": {
+          "recall": 2.0,
+          "extra": 0,
+          "fp": 0
+        },
+        "bridge-wormhole": {
+          "recall": 2.0,
+          "extra": 0,
+          "fp": 0
+        },
+        "euler-2023": {
+          "recall": 2.0,
+          "extra": 2,
+          "fp": 0
+        },
+        "flashloan-beanstalk": {
+          "recall": 1.0,
+          "extra": 1,
+          "fp": 0
+        },
+        "flashloan-harvest": {
+          "recall": 1.0,
+          "extra": 1,
+          "fp": 0
+        },
+        "governance-audius": {
+          "recall": 2.0,
+          "extra": 0,
+          "fp": 0
+        },
+        "governance-build": {
+          "recall": 3.0,
+          "extra": 0,
+          "fp": 0
+        },
+        "integer-cover": {
+          "recall": 1.0,
+          "extra": 0,
+          "fp": 0
+        },
+        "integer-uranium": {
+          "recall": 1.0,
+          "extra": 0,
+          "fp": 0
+        },
+        "integer-value": {
+          "recall": 1.0,
+          "extra": 1,
+          "fp": 0
+        },
+        "logic-compound": {
+          "recall": 1.0,
+          "extra": 0,
+          "fp": 0
+        },
+        "logic-level": {
+          "recall": 1.0,
+          "extra": 1,
+          "fp": 0
+        },
+        "nomad-2022": {
+          "recall": 1.0,
+          "extra": 1,
+          "fp": 0
+        },
+        "oracle-bonq": {
+          "recall": 2.0,
+          "extra": 0,
+          "fp": 0
+        },
+        "oracle-inverse": {
+          "recall": 1.0,
+          "extra": 0,
+          "fp": 0
+        },
+        "oracle-mango": {
+          "recall": 1.0,
+          "extra": 1,
+          "fp": 0
+        },
+        "reentrancy-cream": {
+          "recall": 1.0,
+          "extra": 0,
+          "fp": 0
+        },
+        "reentrancy-curve-readonly": {
+          "recall": 1.0,
+          "extra": 1,
+          "fp": 0
+        },
+        "reentrancy-dao": {
+          "recall": 1.0,
+          "extra": 0,
+          "fp": 0
+        }
       }
     }
   ]

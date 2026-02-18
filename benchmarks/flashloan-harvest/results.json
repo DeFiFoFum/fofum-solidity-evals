@@ -1,0 +1,44 @@
+{
+  "auditedAt": "2026-02-18T02:52:00Z",
+  "skill": "fofum-solidity-audit",
+  "skillVersion": "0.1.0",
+  "findings": [
+    {
+      "id": "HARVEST-F01",
+      "title": "Spot price oracle vulnerable to flash loan manipulation",
+      "severity": "critical",
+      "category": "oracle",
+      "location": {
+        "file": "HarvestSimplified.sol",
+        "function": "getPriceFromCurve()",
+        "lines": "47-51"
+      },
+      "description": "The vault uses Curve's get_dy() spot price for valuation. This price can be manipulated within a single transaction using flash loans to move Curve pool reserves.",
+      "impact": "Attacker deposits at inflated value, withdraws at normal value, extracting funds from other depositors.",
+      "recommendation": "Use TWAP oracle (Chainlink, Uniswap V3 TWAP) or add flash loan guards.",
+      "confidence": "high"
+    },
+    {
+      "id": "HARVEST-F02",
+      "title": "No slippage protection on deposit valuation",
+      "severity": "medium",
+      "category": "input-validation",
+      "location": {
+        "file": "HarvestSimplified.sol",
+        "function": "deposit()",
+        "lines": "56-72"
+      },
+      "description": "The deposit function has no minimum shares parameter, allowing front-running and sandwich attacks.",
+      "recommendation": "Add minSharesOut parameter to deposit().",
+      "confidence": "medium"
+    }
+  ],
+  "summary": {
+    "critical": 1,
+    "high": 0,
+    "medium": 1,
+    "low": 0,
+    "total": 2
+  },
+  "rootCauseIdentified": true
+}

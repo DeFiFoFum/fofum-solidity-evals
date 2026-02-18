@@ -1,0 +1,17 @@
+{
+  "name": "Wintermute",
+  "date": "2022-09-20",
+  "loss": "$160M",
+  "chain": "ethereum",
+  "category": "wallet",
+  "vulnerabilities": [
+    {
+      "id": "WINTERMUTE-01",
+      "title": "Vanity address private key recovery",
+      "severity": "critical",
+      "category": "access-control",
+      "description": "Wintermute used Profanity tool to generate vanity address (0x0000000...). The tool had a vulnerability allowing private key recovery from public key using GPU brute force. Attacker recovered private key and drained wallet.",
+      "rootCause": "Weak randomness in vanity address generator allowed key recovery"
+    }
+  ]
+}

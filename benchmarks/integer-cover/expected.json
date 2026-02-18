@@ -1,0 +1,17 @@
+{
+  "name": "Cover Protocol",
+  "date": "2020-12-28",
+  "loss": "$4M",
+  "chain": "ethereum",
+  "category": "insurance",
+  "vulnerabilities": [
+    {
+      "id": "COVER-01",
+      "title": "Infinite token minting via accounting bug",
+      "severity": "critical",
+      "category": "integer",
+      "description": "A bug in the reward distribution contract allowed minting an unlimited number of COVER tokens by repeatedly calling a function that didn't properly track claimed rewards.",
+      "rootCause": "Missing state update in reward claim allowed infinite claims"
+    }
+  ]
+}

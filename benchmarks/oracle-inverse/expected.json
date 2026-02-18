@@ -1,0 +1,17 @@
+{
+  "name": "Inverse Finance",
+  "date": "2022-04-02",
+  "loss": "$15.6M",
+  "chain": "ethereum",
+  "category": "lending",
+  "vulnerabilities": [
+    {
+      "id": "INVERSE-01",
+      "title": "Short TWAP window vulnerable to manipulation",
+      "severity": "critical",
+      "category": "oracle",
+      "description": "Inverse used SushiSwap TWAP with only 25-minute window for INV price. On a low-liquidity pair, attacker could manipulate price over ~25 minutes, then borrow DOLA against inflated INV collateral.",
+      "rootCause": "TWAP window too short for low-liquidity asset"
+    }
+  ]
+}

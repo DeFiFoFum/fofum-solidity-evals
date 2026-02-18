@@ -1,0 +1,44 @@
+{
+  "auditedAt": "2026-02-18T03:00:00Z",
+  "skill": "fofum-solidity-audit",
+  "skillVersion": "0.1.0",
+  "findings": [
+    {
+      "id": "BONQ-F01",
+      "title": "Oracle update cost too low relative to exploitable value",
+      "severity": "critical",
+      "category": "oracle",
+      "location": {
+        "file": "BonqSimplified.sol",
+        "function": "submitValue(), MIN_STAKE constant",
+        "lines": "32, 51-60"
+      },
+      "description": "TellorFlex allows anyone to submit prices after staking only 10 TRB (~$175). The cost to manipulate the oracle is far less than the value that can be extracted.",
+      "impact": "Attacker stakes minimal TRB, submits inflated price, borrows against inflated collateral, profits >> stake cost.",
+      "recommendation": "Require higher stake, implement dispute period, use multiple oracle sources.",
+      "confidence": "high"
+    },
+    {
+      "id": "BONQ-F02",
+      "title": "No price sanity checks on oracle read",
+      "severity": "high",
+      "category": "oracle",
+      "location": {
+        "file": "BonqSimplified.sol",
+        "function": "borrow()",
+        "lines": "87-99"
+      },
+      "description": "The borrow function uses oracle price without checking staleness, deviation from TWAP, or comparison to secondary oracles.",
+      "recommendation": "Add staleness check, deviation bounds, and secondary oracle validation.",
+      "confidence": "high"
+    }
+  ],
+  "summary": {
+    "critical": 1,
+    "high": 1,
+    "medium": 0,
+    "low": 0,
+    "total": 2
+  },
+  "rootCauseIdentified": true
+}

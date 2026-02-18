@@ -1,0 +1,17 @@
+{
+  "name": "BonqDAO (TellorFlex)",
+  "date": "2023-02-01",
+  "loss": "$120M",
+  "chain": "polygon",
+  "category": "lending",
+  "vulnerabilities": [
+    {
+      "id": "BONQ-01",
+      "title": "Low-cost oracle update allows price manipulation",
+      "severity": "critical",
+      "category": "oracle",
+      "description": "BonqDAO used TellorFlex oracle which allowed anyone to submit price updates by staking TRB tokens (only ~$175 at the time). Attacker staked minimal TRB, submitted manipulated WALBT price, and borrowed against inflated collateral.",
+      "rootCause": "Oracle update cost too low relative to extractable value, no sanity checks on price submissions"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "auditedAt": "2026-02-18T02:55:00Z",
+  "skill": "fofum-solidity-audit",
+  "skillVersion": "0.1.0",
+  "findings": [
+    {
+      "id": "MANGO-F01",
+      "title": "Self-referential oracle allows price manipulation",
+      "severity": "critical",
+      "category": "oracle",
+      "location": {
+        "file": "MangoSimplified.sol",
+        "function": "getMngoPrice()",
+        "lines": "47-51"
+      },
+      "description": "The protocol uses its own internal market price (mngoPrice) as the oracle for collateral valuation. This price is directly manipulated by trading on the same platform via tradePerp().",
+      "impact": "Attacker pumps price with minimal capital, borrows against inflated collateral, extracts all protocol funds.",
+      "recommendation": "Use external oracle (Chainlink, Pyth) that cannot be manipulated by trading on this platform.",
+      "confidence": "high"
+    },
+    {
+      "id": "MANGO-F02",
+      "title": "Unrealized PnL counted as collateral",
+      "severity": "high",
+      "category": "logic-bug",
+      "location": {
+        "file": "MangoSimplified.sol",
+        "function": "borrow()",
+        "lines": "77-92"
+      },
+      "description": "The borrow() function adds unrealized perp PnL to collateral value. Combined with price manipulation, this amplifies the attack.",
+      "recommendation": "Only count realized PnL or apply significant haircuts to unrealized profits.",
+      "confidence": "high"
+    }
+  ],
+  "summary": {
+    "critical": 1,
+    "high": 1,
+    "medium": 0,
+    "low": 0,
+    "total": 2
+  },
+  "rootCauseIdentified": true
+}

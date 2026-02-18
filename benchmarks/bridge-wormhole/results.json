@@ -1,0 +1,44 @@
+{
+  "auditedAt": "2026-02-18T03:28:00Z",
+  "skill": "fofum-solidity-audit",
+  "skillVersion": "0.1.0",
+  "findings": [
+    {
+      "id": "WORMHOLE-F01",
+      "title": "Signature verification doesn't validate signer recovery",
+      "severity": "critical",
+      "category": "access-control",
+      "location": {
+        "file": "WormholeSimplified.sol",
+        "function": "verifySignatures()",
+        "lines": "66-98"
+      },
+      "description": "ecrecover can return address(0) for invalid signatures. The code doesn't check for this case - if guardians[address(0)] were somehow true or the check is bypassed, invalid signatures pass.",
+      "impact": "Forged guardian approvals allow minting tokens without real deposits.",
+      "recommendation": "require(signer != address(0)) after ecrecover. Validate signature format. Use OpenZeppelin ECDSA library.",
+      "confidence": "high"
+    },
+    {
+      "id": "WORMHOLE-F02",
+      "title": "No deduplication of signers",
+      "severity": "high",
+      "category": "access-control",
+      "location": {
+        "file": "WormholeSimplified.sol",
+        "function": "verifySignatures()",
+        "lines": "88-93"
+      },
+      "description": "The same guardian signature could potentially be counted multiple times if included multiple times in the signatures array.",
+      "recommendation": "Track which guardians have already signed. Require ordered signatures to prevent duplicates.",
+      "confidence": "medium"
+    }
+  ],
+  "summary": {
+    "critical": 1,
+    "high": 1,
+    "medium": 0,
+    "low": 0,
+    "total": 2
+  },
+  "rootCauseIdentified": true
+}

@@ -1,0 +1,17 @@
+{
+  "name": "Wormhole",
+  "date": "2022-02-02",
+  "loss": "$326M",
+  "chain": "solana/ethereum",
+  "category": "bridge",
+  "vulnerabilities": [
+    {
+      "id": "WORMHOLE-01",
+      "title": "Signature verification bypass in Solana program",
+      "severity": "critical",
+      "category": "access-control",
+      "description": "The Solana program had a bug in signature verification that allowed forged guardian signatures. Attacker created fake VAA (Verified Action Approval) messages and minted wETH without depositing.",
+      "rootCause": "Incomplete signature verification allowed spoofed guardian approvals"
+    }
+  ]
+}

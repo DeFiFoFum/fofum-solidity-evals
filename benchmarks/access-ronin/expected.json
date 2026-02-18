@@ -1,0 +1,17 @@
+{
+  "name": "Ronin Bridge",
+  "date": "2022-03-23",
+  "loss": "$625M",
+  "chain": "ethereum",
+  "category": "bridge",
+  "vulnerabilities": [
+    {
+      "id": "RONIN-01",
+      "title": "Insufficient validator key distribution",
+      "severity": "critical",
+      "category": "access-control",
+      "description": "Ronin bridge required 5 of 9 validator signatures. Sky Mavis controlled 4 keys directly, and 1 more was delegated to them by Axie DAO. Attackers compromised these 5 keys via social engineering and signed fraudulent withdrawals.",
+      "rootCause": "Validator key concentration + social engineering = threshold bypass"
+    }
+  ]
+}

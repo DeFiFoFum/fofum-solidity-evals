@@ -1,0 +1,17 @@
+{
+  "name": "Value DeFi",
+  "date": "2021-05-07",
+  "loss": "$11M",
+  "chain": "bsc",
+  "category": "yield",
+  "vulnerabilities": [
+    {
+      "id": "VALUE-01",
+      "title": "Price calculation precision loss",
+      "severity": "critical",
+      "category": "integer",
+      "description": "Division before multiplication caused precision loss in share price calculation. When combined with flash loans, attackers could deposit at low price, manipulate, then withdraw at inflated price.",
+      "rootCause": "Division before multiplication in price calculation"
+    }
+  ]
+}

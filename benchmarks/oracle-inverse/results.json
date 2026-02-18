@@ -1,0 +1,30 @@
+{
+  "auditedAt": "2026-02-18T02:58:00Z",
+  "skill": "fofum-solidity-audit",
+  "skillVersion": "0.1.0",
+  "findings": [
+    {
+      "id": "INVERSE-F01",
+      "title": "TWAP window too short for low-liquidity asset",
+      "severity": "critical",
+      "category": "oracle",
+      "location": {
+        "file": "InverseSimplified.sol",
+        "function": "getTWAP(), TWAP_WINDOW constant",
+        "lines": "31, 50-62"
+      },
+      "description": "The TWAP oracle uses only a 25-minute window. For low-liquidity pairs, an attacker can manipulate the price over this period with sustained trading pressure, then exploit the manipulated TWAP.",
+      "impact": "Attacker borrows against inflated collateral value, creating bad debt.",
+      "recommendation": "Increase TWAP window to 4-24 hours for low-liquidity assets. Add circuit breakers for unusual price movements.",
+      "confidence": "high"
+    }
+  ],
+  "summary": {
+    "critical": 1,
+    "high": 0,
+    "medium": 0,
+    "low": 0,
+    "total": 1
+  },
+  "rootCauseIdentified": true
+}

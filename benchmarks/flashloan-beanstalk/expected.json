@@ -1,0 +1,17 @@
+{
+  "name": "Beanstalk",
+  "date": "2022-04-17",
+  "loss": "$182M",
+  "chain": "ethereum",
+  "category": "governance",
+  "vulnerabilities": [
+    {
+      "id": "BEAN-01",
+      "title": "Flash loan governance attack - instant proposal execution",
+      "severity": "critical",
+      "category": "flash-loan",
+      "description": "Beanstalk allowed immediate proposal execution without timelock if quorum was met. Attacker flash loaned governance tokens, achieved quorum, and executed malicious proposal in single transaction.",
+      "rootCause": "No timelock between proposal creation and execution when emergencyCommit threshold met"
+    }
+  ]
+}

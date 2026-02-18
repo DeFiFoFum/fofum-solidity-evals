@@ -1,0 +1,30 @@
+{
+  "auditedAt": "2026-02-18T03:15:00Z",
+  "skill": "fofum-solidity-audit",
+  "skillVersion": "0.1.0",
+  "findings": [
+    {
+      "id": "URANIUM-F01",
+      "title": "Inconsistent fee basis in swap calculation",
+      "severity": "critical",
+      "category": "integer",
+      "location": {
+        "file": "UraniumSimplified.sol",
+        "function": "swap()",
+        "lines": "37-49"
+      },
+      "description": "The K invariant check uses FEE_DENOMINATOR_CALC (1000) while balance adjustments use FEE_DENOMINATOR_SWAP (10000). This 10x mismatch allows extracting more value than deposited.",
+      "impact": "Attackers can drain liquidity pools by exploiting the calculation mismatch.",
+      "recommendation": "Use consistent fee basis throughout all calculations. Define once, reference everywhere.",
+      "confidence": "high"
+    }
+  ],
+  "summary": {
+    "critical": 1,
+    "high": 0,
+    "medium": 0,
+    "low": 0,
+    "total": 1
+  },
+  "rootCauseIdentified": true
+}

@@ -1,0 +1,17 @@
+{
+  "name": "Cream Finance",
+  "date": "2021-08-30",
+  "loss": "$18.8M",
+  "chain": "ethereum",
+  "category": "lending",
+  "vulnerabilities": [
+    {
+      "id": "CREAM-01",
+      "title": "Reentrancy via AMP token callback",
+      "severity": "critical",
+      "category": "reentrancy",
+      "description": "AMP token implements ERC777-style hooks that call back to the sender during transfers. Cream's borrow function made external calls before updating state, allowing reentrancy through the token callback.",
+      "rootCause": "External token transfer (with callback) before state update in borrow flow"
+    }
+  ]
+}

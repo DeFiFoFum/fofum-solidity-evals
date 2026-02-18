@@ -1,0 +1,17 @@
+{
+  "name": "Poly Network",
+  "date": "2021-08-10",
+  "loss": "$611M",
+  "chain": "ethereum/bsc/polygon",
+  "category": "bridge",
+  "vulnerabilities": [
+    {
+      "id": "POLY-01",
+      "title": "Cross-chain call target not validated",
+      "severity": "critical",
+      "category": "access-control",
+      "description": "The bridge allowed cross-chain messages to call arbitrary contracts with arbitrary data. Attacker sent a message that called the keeper contract to change the keeper address to attacker-controlled address, then drained all locked assets.",
+      "rootCause": "No validation of cross-chain message targets - could modify bridge's own permissions"
+    }
+  ]
+}

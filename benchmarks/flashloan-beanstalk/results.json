@@ -1,0 +1,45 @@
+{
+  "auditedAt": "2026-02-18T02:50:00Z",
+  "skill": "fofum-solidity-audit",
+  "skillVersion": "0.1.0",
+  "findings": [
+    {
+      "id": "BEAN-F01",
+      "title": "Flash loan governance attack via current-balance voting power",
+      "severity": "critical",
+      "category": "flash-loan",
+      "location": {
+        "file": "BeanstalkSimplified.sol",
+        "function": "getVotingPower()",
+        "lines": "52-55"
+      },
+      "description": "Voting power is based on current token balance, not historical snapshots. Attacker can flash loan tokens to gain temporary voting power.",
+      "impact": "Complete governance takeover and treasury drain in a single transaction.",
+      "recommendation": "Use ERC20Votes with getPastVotes() for snapshot-based voting power.",
+      "confidence": "high"
+    },
+    {
+      "id": "BEAN-F02",
+      "title": "No timelock on emergency proposal execution",
+      "severity": "critical",
+      "category": "governance",
+      "location": {
+        "file": "BeanstalkSimplified.sol",
+        "function": "emergencyCommit()",
+        "lines": "93-108"
+      },
+      "description": "The emergencyCommit() function executes proposals immediately if threshold is met, with no timelock delay for community review.",
+      "impact": "Malicious proposals can be created and executed in the same transaction.",
+      "recommendation": "Require minimum timelock (24-48 hours) even for emergency proposals.",
+      "confidence": "high"
+    }
+  ],
+  "summary": {
+    "critical": 2,
+    "high": 0,
+    "medium": 0,
+    "low": 0,
+    "total": 2
+  },
+  "rootCauseIdentified": true
+}

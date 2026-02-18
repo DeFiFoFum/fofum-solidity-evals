@@ -1,0 +1,17 @@
+{
+  "name": "Audius",
+  "date": "2022-07-24",
+  "loss": "$6M",
+  "chain": "ethereum",
+  "category": "governance",
+  "vulnerabilities": [
+    {
+      "id": "AUDIUS-01",
+      "title": "Governance proxy re-initialization",
+      "severity": "critical",
+      "category": "access-control",
+      "description": "The governance proxy could be re-initialized because the initializer hadn't been called on the implementation. Attacker called initialize() with their own parameters, taking control of governance.",
+      "rootCause": "Uninitialized implementation contract allowed re-initialization via proxy"
+    }
+  ]
+}

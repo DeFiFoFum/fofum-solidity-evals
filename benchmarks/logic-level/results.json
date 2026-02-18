@@ -1,0 +1,45 @@
+{
+  "auditedAt": "2026-02-18T03:12:00Z",
+  "skill": "fofum-solidity-audit",
+  "skillVersion": "0.1.0",
+  "findings": [
+    {
+      "id": "LEVEL-F01",
+      "title": "Self-referral allowed",
+      "severity": "high",
+      "category": "logic-bug",
+      "location": {
+        "file": "LevelSimplified.sol",
+        "function": "setReferrer()",
+        "lines": "22-26"
+      },
+      "description": "Users can set themselves as their own referrer, earning referral rewards from their own trading activity.",
+      "impact": "Protocol loses referral incentive funds to self-referrers.",
+      "recommendation": "Add check: require(_referrer != msg.sender)",
+      "confidence": "high"
+    },
+    {
+      "id": "LEVEL-F02",
+      "title": "Reentrancy in claimReferralRewards",
+      "severity": "critical",
+      "category": "reentrancy",
+      "location": {
+        "file": "LevelSimplified.sol",
+        "function": "claimReferralRewards()",
+        "lines": "45-55"
+      },
+      "description": "The function transfers ETH before setting rewards to zero. An attacker's receive() can reenter and claim again.",
+      "impact": "Complete drainage of referral reward pool.",
+      "recommendation": "Follow CEI pattern: set referralRewards[msg.sender] = 0 before transfer.",
+      "confidence": "high"
+    }
+  ],
+  "summary": {
+    "critical": 1,
+    "high": 1,
+    "medium": 0,
+    "low": 0,
+    "total": 2
+  },
+  "rootCauseIdentified": true
+}

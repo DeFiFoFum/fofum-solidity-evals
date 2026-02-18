@@ -1,0 +1,17 @@
+{
+  "name": "Mango Markets",
+  "date": "2022-10-11",
+  "loss": "$116M",
+  "chain": "solana",
+  "category": "perpetuals",
+  "vulnerabilities": [
+    {
+      "id": "MANGO-01",
+      "title": "Self-referential oracle allows collateral manipulation",
+      "severity": "critical",
+      "category": "oracle",
+      "description": "Mango used its own perpetual contract price as the oracle for collateral value. Attacker manipulated MNGO perp price on the platform itself, then borrowed against the inflated collateral value.",
+      "rootCause": "Using own platform's derivative price as oracle for collateral backing that same derivative"
+    }
+  ]
+}
