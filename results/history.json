@@ -1,0 +1,19 @@
+{
+  "runs": [
+    {
+      "timestamp": "2026-02-17T21:56:00Z",
+      "skillVersion": "0.1.0",
+      "benchmarks": 3,
+      "knownVulns": 3,
+      "recall": 1.0,
+      "extraFindings": 4,
+      "falsePositives": 0,
+      "grade": "A+",
+      "details": {
+        "euler-2023": { "recall": 1.0, "extra": 3, "fp": 0 },
+        "nomad-2022": { "recall": 1.0, "extra": 1, "fp": 0 },
+        "reentrancy-dao": { "recall": 1.0, "extra": 0, "fp": 0 }
+      }
+    }
+  ]
+}

@@ -61,3 +61,12 @@ clean:
 stats:
 	@echo "Benchmarks: $$(ls -1 benchmarks/ | grep -v ".gitkeep" | wc -l)"
 	@echo "With results: $$(find benchmarks -name "results.json" | wc -l)"
+
+# Save current results to history
+save:
+	@python3 scripts/save_history.py
+	@echo "Results saved to results/history.json"
+
+# Show history
+history:
+	@python3 -c "import json; h=json.load(open('results/history.json')); print('Run History:'); [print(f\"  {r['timestamp'][:10]}: {r['grade']} ({r['recall']*100:.0f}% recall, {r['benchmarks']} benchmarks)\") for r in h['runs']]"
